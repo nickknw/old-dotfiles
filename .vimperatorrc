@@ -1,0 +1,32 @@
+"Switch ; and :
+noremap ; :
+noremap : ;
+
+" Make Ctrl-x, Ctrl-c, and Ctrl-v work as normal in Windows
+" Map 'Stop page loading' to Ctrl-s
+" Map 'Pass-next' to Ctrl-q
+noremap <C-q> <C-v>
+noremap <C-s> <C-c>
+
+inoremap <C-q> <C-v>
+inoremap <C-s> <C-c>
+
+noremap <C-c> <C-v><C-c>
+noremap <C-v> <C-v><C-v>
+noremap <C-x> <C-v><C-x>
+
+"cnoremap <C-c> <C-v><C-c>
+cnoremap <C-v> <C-v><C-v>
+cnoremap <C-x> <C-v><C-x>
+
+inoremap <C-c> <C-v><C-c>
+inoremap <C-v> <C-v><C-v>
+inoremap <C-x> <C-v><C-x>
+
+cnoremap <C-\'> .com<CR>
+
+noremap <C-m> :set go+=mT<CR>
+noremap <C-S-M> :set go-=mT<CR>
+noremap <C-,> <C-F11>
+map , <Esc><Esc>;<Up><CR>
+
