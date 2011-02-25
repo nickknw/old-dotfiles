@@ -114,7 +114,7 @@ noremap : ;
 noremap \cd :cd %:p:h<CR>  
 
 " clear highlighting on <esc> press
-nnoremap <esc> :noh<return><esc>
+nnoremap <esc><esc> :noh<return><esc>
 
 " Make C-BS and C-Del work like they do in most text editors for the sake of muscle memory
 imap <C-BS> <C-W>
@@ -122,10 +122,10 @@ imap <C-Del> <esc>Ea<C-W>
 
 " Windows-like copy/cut/paste mappings
 " CTRL-V is Paste in insert mode
-imap <C-V>              "+gpa   
+imap <C-V>              *
 " CTRL-C is Copy, CTRL-X is Cut, in visual mode
-vmap <C-C>              "+y
-vmap <C-x>              "+d
+vmap <C-C>              y
+vmap <C-x>              d
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q>           <C-V>
 
