@@ -9,4 +9,5 @@ alias ba='vi ~/.bash_aliases'
 alias sba='source ~/.bash_aliases'
 alias vrc='vi ~/.vimrc'
 alias vidir="for file in * ; do echo -e '\n\n'--$file--'\n'; cat $file;  done | vim - "
-alias aptinst="sudo apt-get install"
+alias apt-i="sudo apt-get install"
+alias apt-s="apt-cache search"

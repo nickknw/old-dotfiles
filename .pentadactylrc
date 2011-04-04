@@ -3,9 +3,26 @@ set incfind
 
 noremap <esc> <esc><esc>:noh<cr>
 
-"Switch ; and :
+" Switch ; and :
 noremap ; :
 noremap : ;
+
+" attempt to emulate the default <ctrl-enter> behavior of most browsers.
+" this is the closest I've been able to get, for whatever reason
+cnoremap <C-\'> .com<CR>
+
+" lazy and semi-convenient toggling of the menu + address bar
+noremap <C-m> :set go+=mT<CR>
+noremap <C-S-M> :set go-=mT<CR>
+
+" <Esc> to stop search highlighting
+map , <Esc><Esc>;<Up><CR>
+
+" when I ran into problems with my default search providers, this helped 
+set defsearch=g
+
+
+" Windows shortcut emulations (pretty much mswin.vim)
 
 " Make Ctrl-x, Ctrl-c, and Ctrl-v work as normal in Windows
 " Map 'Stop page loading' to Ctrl-s
@@ -27,12 +44,3 @@ cnoremap <C-x> <C-v><C-x>
 inoremap <C-c> <C-v><C-c>
 inoremap <C-v> <C-v><C-v>
 inoremap <C-x> <C-v><C-x>
-
-cnoremap <C-\'> .com<CR>
-
-noremap <C-m> :set go+=mT<CR>
-noremap <C-S-M> :set go-=mT<CR>
-noremap <C-,> <C-F11>
-map , <Esc><Esc>;<Up><CR>
-
-set defsearch=g

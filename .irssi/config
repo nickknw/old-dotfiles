@@ -1,10 +1,10 @@
 servers = (
-  {
-    address = "irc.xkcd.com";
-    chatnet = "xkcd";
-    port = "6667";
-    autoconnect = "yes";
+  { 
+    address = "chat.freenode.net";
+    chatnet = "Freenode";
+    port = "8001";
   },
+  { address = "irc.xkcd.com"; chatnet = "xkcd"; port = "6667"; },
   { address = "irc.ubuntu.com"; chatnet = "Ubuntu"; port = "8001"; },
   { address = "irc.stealth.net"; chatnet = "IRCnet"; port = "6668"; },
   { address = "irc.efnet.org"; chatnet = "EFNet"; port = "6667"; },
@@ -57,6 +57,7 @@ chatnets = {
   SILC = { type = "SILC"; };
   Ubuntu = { type = "IRC"; };
   xkcd = { type = "IRC"; };
+  Freenode = { type = "IRC"; };
 };
 
 channels = (
@@ -226,9 +227,9 @@ statusbar = {
 };
 settings = {
   core = {
-    real_name = "nick";
-    user_name = "nick";
-    nick = "nick";
+    real_name = "nickknw";
+    user_name = "nickknw";
+    nick = "nickknw";
     timestamp_format = "%H:%M:%S";
   };
   "fe-text" = { actlist_sort = "refnum"; };
@@ -242,22 +243,9 @@ settings = {
   "fe-common/irc" = { show_away_once = "yes"; };
 };
 
-hilights = (
-  { text = "nick"; nick = "no"; word = "no"; },
-  { text = "dreynsen"; nick = "no"; word = "no"; }
-);
+hilights = ( { text = "nickknw"; nick = "no"; word = "no"; } );
 windows = {
   1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
-  2 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#xkcd-signal";
-        tag = "xkcd";
-      }
-    );
-  };
   5 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
@@ -265,3 +253,4 @@ mainwindows = {
   5 = { first_line = "1"; lines = "7"; };
 };
 keyboard = ( { key = "^h"; id = "nothing"; data = ""; } );
+ignores = ( { level = "JOINS PARTS QUITS"; channels = ( "#io" ); } );

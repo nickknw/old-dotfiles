@@ -2,7 +2,7 @@
 	name = Nick
 	email = nickknw@gmail.com
 [core]
-	autocrlf = true
+	autocrlf = false
 	safecrlf = false
 	editor = gvim --nofork 
 [alias]

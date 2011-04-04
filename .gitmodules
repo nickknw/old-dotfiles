@@ -1,0 +1,27 @@
+[submodule ".vim/bundle/solarized"]
+	path = .vim/bundle/solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/bundle/mru"]
+	path = .vim/bundle/mru
+	url = https://github.com/vim-scripts/mru.vim.git
+[submodule ".vim/bundle/align"]
+	path = .vim/bundle/align
+	url = https://github.com/tsaleh/vim-align.git
+[submodule ".vim/bundle/easymotion"]
+	path = .vim/bundle/easymotion
+	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule ".vim/bundle/NERDTree"]
+	path = .vim/bundle/NERDTree
+	url = https://github.com/vim-scripts/The-NERD-tree.git
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/vimwiki"]
+	path = .vim/bundle/vimwiki
+	url = https://github.com/vim-scripts/vimwiki.git
+[submodule ".vim/bundle/matchit"]
+	path = .vim/bundle/matchit
+	url = https://github.com/vim-scripts/matchit.zip.git
+[submodule ".vim/bundle/molokai"]
+	path = .vim/bundle/molokai
+	url = https://github.com/tpope/vim-surround.git

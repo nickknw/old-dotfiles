@@ -1,2 +1,1 @@
-" Io
-set filetype=io
+au BufNewFile,BufRead *io setf io

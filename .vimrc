@@ -1,15 +1,16 @@
 " vim: foldmethod=marker foldlevel=1 
 
-" Basic Defaults {{{
+" pathogen!
+call pathogen#runtime_append_all_bundles() 
+
+" Get a good baseline {{{
 " --------------------------------
-if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-   set fileencodings=utf-8,latin1
-endif
 
 set nocompatible        " Use Vim defaults (much better!)
 set bs=2                " allow backspacing over everything in insert mode
 set viminfo='20,\"50    " read/write a .viminfo file, don't store more than 50 lines of registers
 set history=50          " keep 50 lines of command line history
+set showcmd             " show partial commands below statusline
 set showmode            " If in Insert, Replace or Visual mode put a message on the last line
 set nu                  " show line numbers
 set display=lastline    " include as much of the last line as possible
@@ -20,6 +21,17 @@ set cryptmethod=blowfish
 set textwidth=80
 set colorcolumn=0       " keep at 0 by default, but offer a mapping later on to change it
 set linebreak           " break lines at word boundaries instead of anywhere in the word (display only)
+set hidden              " allow buffer to be changed without writing to disk
+
+" Edit in Unicode, using UTF-8
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8                     " better default than latin1
+  setglobal fileencoding=utf-8           " change default file encoding when writing new files
+  set fileencodings=ucs-bom,utf-8,latin1 " order to check for encodings when reading files
+endif
 
 " Use spaces instead of tabs, indent level should be 4
 set tabstop=8           
@@ -71,10 +83,9 @@ set clipboard=unnamed
 " make sure I'm starting in my home dir, not Prog Files\Vim etc.
 cd ~  
 
-set gfn=DejaVu\ Sans\ Mono\ 10
-" I switch often between these 
-" colo vc 
-colo desert
+" incredibly impressive dark and light colourscheme
+set bg=dark
+colorscheme solarized
 
 " preferred window size
 set lines=25
@@ -92,14 +103,10 @@ if has("gui_running")
     set guioptions-=m "remove menu
     set guioptions-=T "remove toolbar
     set guioptions-=l "remove left scrollbar
+    set guioptions-=a " stop auto-copying visual selections!
     "set guioptions+=b
     "set nowrap
 endif
-
-" statusline related
-set laststatus=2        "always show statusline
-set showcmd             "show partial commands below statusline
-"set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*fugitive#statusline')?fugitive#statusline():''}%*%=%-16(\ %l,%c%V\ %)%P\ of\ %L
 
 " }}}
 
@@ -120,6 +127,8 @@ nnoremap <esc><esc> :noh<return><esc>
 imap <C-BS> <C-W>
 imap <C-Del> <esc>Ea<C-W>
 
+" gVim on Ubuntu in a VM is having trouble with <S-Insert>
+imap <S-Insert>     *
 " Windows-like copy/cut/paste mappings
 " CTRL-V is Paste in insert mode
 imap <C-V>              *
@@ -173,6 +182,21 @@ noremap \b :FufBuffer<CR>
 
 " refresh fugitive status on gaining focus
 autocmd FocusGained * if !has('win32') | silent! call fugitive#reload_status() | endif
+
+" toggle solarized
+function! ToggleBackground()
+    if (g:solarized_style=="dark")
+    let g:solarized_style="light"
+    colorscheme solarized
+else
+    let g:solarized_style="dark"
+    colorscheme solarized
+endif
+endfunction
+command! Togbg call ToggleBackground()
+nnoremap <F7> :call ToggleBackground()<CR>
+inoremap <F7> <ESC>:call ToggleBackground()<CR>a
+vnoremap <F7> <ESC>:call ToggleBackground()<CR>
 
 " }}}
 
@@ -246,4 +270,62 @@ func! VimwikiCopyImages()
     let home=expand('~')
     "let res=system('xcopy "' . home . '\vimwiki\*.png" "' . home .  '\vimwiki_html\" /R/Y')
 endfunc
+"
 " }}}\
+
+" Statusline {{{
+" --------------------------------
+"
+" http://www.reddit.com/r/vim/comments/gexi6/a_smarter_statusline_code_in_comments/
+
+set laststatus=2        "always show statusline
+
+hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
+hi Modified guibg=orange guifg=black ctermbg=lightred ctermfg=black
+
+function! MyStatusLine(mode)
+    let statusline=""
+    if a:mode == 'Enter'
+        let statusline.="%#StatColor#"
+    endif
+    let statusline.="\(%n\)\ %<%.99f\ "
+    if a:mode == 'Enter'
+        let statusline.="%*"
+    endif
+    let statusline.="%#Modified#%m"
+    if a:mode == 'Leave'
+        let statusline.="%*%r"
+    elseif a:mode == 'Enter'
+        let statusline.="%r%*"
+    endif
+
+    let statusline .= "%h%w\ %y"
+    let statusline .= "\ %{exists('*fugitive#statusline')?fugitive#statusline():''}" "fugitive
+    let statusline .= "%="
+    let statusline .= "\ [%{\"\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"\"}" "encoding
+    let statusline .= ":%{&fileformat}\ |"
+    let statusline .= "\ %(%l,%c%V%)\ |\ %P\ of\ %L]"
+    return statusline
+endfunction
+
+au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
+au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
+set statusline=%!MyStatusLine('Enter')
+
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi StatColor guibg=orange ctermbg=lightred
+  elseif a:mode == 'r'
+    hi StatColor guibg=#e454ba ctermbg=magenta
+  elseif a:mode == 'v'
+    hi StatColor guibg=#e454ba ctermbg=magenta
+  else
+    hi StatColor guibg=red ctermbg=red
+  endif
+endfunction 
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
+au InsertLeave * hi Modified guibg=orange guifg=black ctermbg=lightred ctermfg=black
+
+" }}}
