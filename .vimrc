@@ -174,6 +174,9 @@ map <Leader>wp <Plug>VimwikiPrevLink
 
 noremap <silent> <F10> :NERDTreeToggle<CR>
 
+" the tutorial: http://sjl.bitbucket.org/gundo.vim/
+nnoremap <F6> :GundoToggle<CR>
+
 noremap \e :FufFileWithCurrentBufferDir **/<CR>
 noremap \b :FufBuffer<CR>
 
