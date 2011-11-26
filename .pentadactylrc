@@ -12,8 +12,8 @@ noremap : ;
 cnoremap <C-\'> .com<CR>
 
 " lazy and semi-convenient toggling of the menu + address bar
-noremap <C-m> :set go+=mT<CR>
-noremap <C-S-M> :set go-=mT<CR>
+noremap <C-m> :set go+=T<CR>
+noremap <C-S-M> :set go-=T<CR>
 
 " <Esc> to stop search highlighting
 map , <Esc><Esc>;<Up><CR>
@@ -44,3 +44,6 @@ cnoremap <C-x> <C-v><C-x>
 inoremap <C-c> <C-v><C-c>
 inoremap <C-v> <C-v><C-v>
 inoremap <C-x> <C-v><C-x>
+
+" make ctrl-enter work like it does in vanilla FF
+:cnoremap <C-CR> <C-e>.com<C-a><C-Right><C-Right><C-Left>www.<CR>

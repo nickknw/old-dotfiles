@@ -1,6 +1,6 @@
 [user]
-	name = Nick
-	email = nickknw@gmail.com
+	name = Nick Knowlson
+	email = nick@nickknowlson.com
 [core]
 	autocrlf = false
 	safecrlf = false
@@ -14,5 +14,4 @@
 	graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
 	lg = log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
         unstage = reset HEAD
-[gui]
-	recentrepo = C:/Documents and Settings/nknowlson/My Documents/qapp
+	pushlive = !./push-generated-files.sh

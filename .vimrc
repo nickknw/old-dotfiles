@@ -1,27 +1,32 @@
 " vim: foldmethod=marker foldlevel=1 
 
+if has('win16') || has('win32') || has('win64')
+    " Make windows use ~/.vim too, I don't want to use _vimfiles
+    set runtimepath^=~/.vim
+endif
+
 " pathogen!
 call pathogen#runtime_append_all_bundles() 
 
 " Get a good baseline {{{
 " --------------------------------
 
-set nocompatible        " Use Vim defaults (much better!)
-set bs=2                " allow backspacing over everything in insert mode
-set viminfo='20,\"50    " read/write a .viminfo file, don't store more than 50 lines of registers
-set history=50          " keep 50 lines of command line history
-set showcmd             " show partial commands below statusline
-set showmode            " If in Insert, Replace or Visual mode put a message on the last line
-set nu                  " show line numbers
-set display=lastline    " include as much of the last line as possible
-set wildmenu            " better command autocompletion
-set winaltkeys=no       " don't use alt keys for menus
+set nocompatible          " Use Vim defaults (much better!)
+set bs=2                  " allow backspacing over everything in insert mode
+set viminfo='20,\"50      " read/write a .viminfo file, don't store more than 50 lines of registers
+set history=50            " keep 50 lines of command line history
+set showcmd               " show partial commands below statusline
+set showmode              " If in Insert, Replace or Visual mode put a message on the last line
+set nu                    " show line numbers
+set display=lastline      " include as much of the last line as possible
+set wildmenu              " better command autocompletion
+set winaltkeys=no         " don't use alt keys for menus
 set foldmethod=marker
-set cryptmethod=blowfish
+set cryptmethod=blowfish  
 set textwidth=80
-set colorcolumn=0       " keep at 0 by default, but offer a mapping later on to change it
-set linebreak           " break lines at word boundaries instead of anywhere in the word (display only)
-set hidden              " allow buffer to be changed without writing to disk
+set colorcolumn=0         " keep at 0 by default, but offer a mapping later on to change it
+set linebreak             " break lines at word boundaries instead of anywhere in the word (display only)
+set hidden                " allow buffer to be changed without writing to disk
 
 " Edit in Unicode, using UTF-8
 if has("multi_byte")
@@ -49,7 +54,7 @@ set hlsearch
 set smartcase
 
 " Persistent undo
-set undodir=~/.vim/undodir
+set undodir=~/vimfiles/undodir
 set undofile
 set undolevels=1000     "maximum number of changes that can be undone
 set undoreload=10000    "maximum number lines to save for undo on a buffer reload
@@ -83,17 +88,27 @@ set clipboard=unnamed
 " make sure I'm starting in my home dir, not Prog Files\Vim etc.
 cd ~  
 
-" incredibly impressive dark and light colourscheme
-set bg=dark
-colorscheme solarized
+if has('win16') || has('win32') || has('win64')
+    set gfn=DejaVu_Sans_Mono:h10
+else
+endif
+
+"colorscheme slate
+colorscheme Tomorrow-Night
 
 " preferred window size
-set lines=25
-set columns=80
+set lines=30
+set columns=100
+"set shellslash
 
 " stop these files from being scattered all over
-set backupdir=~/.vim/backup
-set directory=~/.vim/swap
+if has('win16') || has('win32') || has('win64')
+    set backupdir=~\\vimfiles\\backup
+    set directory=~\\vimfiles\\swap
+else
+    set backupdir=~/.vim/backup
+    set directory=~/.vim/swap
+endif
 
 " stop inserting comments on 'o' or 'O'!
 set formatoptions=cqnr
@@ -103,7 +118,6 @@ if has("gui_running")
     set guioptions-=m "remove menu
     set guioptions-=T "remove toolbar
     set guioptions-=l "remove left scrollbar
-    set guioptions-=a " stop auto-copying visual selections!
     "set guioptions+=b
     "set nowrap
 endif
@@ -121,20 +135,18 @@ noremap : ;
 noremap \cd :cd %:p:h<CR>  
 
 " clear highlighting on <esc> press
-nnoremap <esc><esc> :noh<return><esc>
+nnoremap <esc> :noh<return><esc>
 
 " Make C-BS and C-Del work like they do in most text editors for the sake of muscle memory
 imap <C-BS> <C-W>
 imap <C-Del> <esc>Ea<C-W>
 
-" gVim on Ubuntu in a VM is having trouble with <S-Insert>
-imap <S-Insert>     *
 " Windows-like copy/cut/paste mappings
 " CTRL-V is Paste in insert mode
-imap <C-V>              *
+imap <C-V>              "+gpa   
 " CTRL-C is Copy, CTRL-X is Cut, in visual mode
-vmap <C-C>              y
-vmap <C-x>              d
+vmap <C-C>              "+y
+vmap <C-x>              "+d
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q>           <C-V>
 
@@ -161,11 +173,23 @@ noremap <F8> <Esc>:call ToggleColorColumn()<CR>
 
 "for vimwiki
 filetype plugin on
+let g:tex_flavor='latex'
+let g:vimwiki_list=[ 
+\    {}, 
+\    {'path':'~/DropBox/Nick/online-classes', 'path_html':'~/DropBox/Nick/online-classes/html'}, 
+\    {'path':'~/DropBox/Nick/wiki/genologics/', 'path_html':'~/DropBox/Nick/wiki/genologics/html'}
+\ ]
+let g:vimwiki_camel_case=0
+let g:vimwiki_hl_headers=1
+map <Leader>] viws]lviws]
 
 " make it easier to view pictures from vimwiki
+" pretty hacky - also only works if
 " this one took some time. would be easier to read as a function, but I was
 " having a hard time finding the equivalent of ^Rh in a function.
-" autocmd FileType vimwiki noremap \wi f]h"iyi]:redir => h<CR>:echo $HOME<CR>:redir END<CR>:let @h=substitute(h,"\n","","g")<CR>:!start rundll32.exe C:\WINDOWS\System32\shimgvw.dll,ImageView_Fullscreen h\vimwiki\i<CR><CR>
+if has('win16') || has('win32') || has('win64')
+    autocmd FileType vimwiki noremap \wi :cd %:p:h<CR>f]h"iyi]:redir => h<CR>:cd<CR>:redir END<CR>:let @h=substitute(h,"\n","","g")<CR>:!start rundll32.exe C:\WINDOWS\System32\shimgvw.dll,ImageView_Fullscreen h\i<CR><CR>
+endif
 
 " stop vimwiki from taking over my <c-i>
 " and remap <S-Tab> as well for consistency
@@ -181,25 +205,21 @@ noremap \e :FufFileWithCurrentBufferDir **/<CR>
 noremap \b :FufBuffer<CR>
 
 " http://stackoverflow.com/questions/4294116/problem-with-vims-ruby-plugin
-"let g:ruby_path = ':C:\ruby192\bin'
+let g:ruby_path = ':C:\ruby192\bin'
 
 " refresh fugitive status on gaining focus
 autocmd FocusGained * if !has('win32') | silent! call fugitive#reload_status() | endif
 
-" toggle solarized
-function! ToggleBackground()
-    if (g:solarized_style=="dark")
-    let g:solarized_style="light"
-    colorscheme solarized
-else
-    let g:solarized_style="dark"
-    colorscheme solarized
-endif
-endfunction
-command! Togbg call ToggleBackground()
-nnoremap <F7> :call ToggleBackground()<CR>
-inoremap <F7> <ESC>:call ToggleBackground()<CR>a
-vnoremap <F7> <ESC>:call ToggleBackground()<CR>
+" EasyMotion
+" \f and \F are the best, plus \e and \b conflict with fuf
+let g:EasyMotion_do_mapping=0
+nnoremap <silent> <Leader>f       :call EasyMotionF(0, 0)<CR>
+onoremap <silent> <Leader>f       :call EasyMotionF(0, 0)<CR>
+vnoremap <silent> <Leader>f  :<C-U>call EasyMotionF(1, 0)<CR>
+
+nnoremap <silent> <Leader>F       :call EasyMotionF(0, 1)<CR>
+onoremap <silent> <Leader>F       :call EasyMotionF(0, 1)<CR>
+vnoremap <silent> <Leader>F  :<C-U>call EasyMotionF(1, 1)<CR>
 
 " }}}
 
@@ -271,10 +291,10 @@ endfunc
 "exe "normal a".res
 func! VimwikiCopyImages()
     let home=expand('~')
-    "let res=system('xcopy "' . home . '\vimwiki\*.png" "' . home .  '\vimwiki_html\" /R/Y')
+    let res=system('xcopy "' . home . '\vimwiki\*.png" "' . home .  '\vimwiki_html\" /R/Y')
 endfunc
-"
-" }}}\
+
+" }}}
 
 " Statusline {{{
 " --------------------------------
