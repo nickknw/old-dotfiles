@@ -106,7 +106,8 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/swap
 
 " stop inserting comments on 'o' or 'O'!
-set formatoptions=cqnr
+set formatoptions-=o
+set formatoptions+=nr
 
 " no menus
 if has("gui_running")
@@ -295,6 +296,9 @@ func! VimwikiCopyImages()
     let res=system('xcopy "' . home . '\vimwiki\*.png" "' . home .  '\vimwiki_html\" /R/Y')
 endfunc
 
+func! Stopthat()
+    set formatoptions-=tcoa
+endfunc
 " }}}
 
 " Statusline {{{
