@@ -54,7 +54,7 @@ set hlsearch
 set smartcase
 
 " Persistent undo
-set undodir=~/vimfiles/undodir
+set undodir=~/.vim/undodir
 set undofile
 set undolevels=1000     "maximum number of changes that can be undone
 set undoreload=10000    "maximum number lines to save for undo on a buffer reload
@@ -102,13 +102,8 @@ set columns=100
 "set shellslash
 
 " stop these files from being scattered all over
-if has('win16') || has('win32') || has('win64')
-    set backupdir=~\\vimfiles\\backup
-    set directory=~\\vimfiles\\swap
-else
-    set backupdir=~/.vim/backup
-    set directory=~/.vim/swap
-endif
+set backupdir=~/.vim/backup
+set directory=~/.vim/swap
 
 " stop inserting comments on 'o' or 'O'!
 set formatoptions=cqnr
@@ -118,6 +113,7 @@ if has("gui_running")
     set guioptions-=m "remove menu
     set guioptions-=T "remove toolbar
     set guioptions-=l "remove left scrollbar
+    set guioptions-=a " stop auto-copying visual selections!
     "set guioptions+=b
     "set nowrap
 endif
@@ -135,11 +131,14 @@ noremap : ;
 noremap \cd :cd %:p:h<CR>  
 
 " clear highlighting on <esc> press
-nnoremap <esc> :noh<return><esc>
+nnoremap <esc><esc> :noh<return><esc>
 
 " Make C-BS and C-Del work like they do in most text editors for the sake of muscle memory
 imap <C-BS> <C-W>
 imap <C-Del> <esc>Ea<C-W>
+
+" gVim on Ubuntu in a VM is having trouble with <S-Insert>
+imap <S-Insert>     *
 
 " Windows-like copy/cut/paste mappings
 " CTRL-V is Paste in insert mode
@@ -205,7 +204,9 @@ noremap \e :FufFileWithCurrentBufferDir **/<CR>
 noremap \b :FufBuffer<CR>
 
 " http://stackoverflow.com/questions/4294116/problem-with-vims-ruby-plugin
-let g:ruby_path = ':C:\ruby192\bin'
+if has('win16') || has('win32') || has('win64')
+    let g:ruby_path = ':C:\ruby192\bin'
+endif
 
 " refresh fugitive status on gaining focus
 autocmd FocusGained * if !has('win32') | silent! call fugitive#reload_status() | endif
