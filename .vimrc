@@ -1,6 +1,11 @@
 " vim: foldmethod=marker foldlevel=1 
 
-if has('win16') || has('win32') || has('win64')
+let s:uname = system("echo -n \"$(uname)\"")
+let s:is_windows = has('win16') || has('win32') || has('win64')
+let s:is_mac = s:uname == 'Darwin'
+let s:is_unix = has('unix')
+
+if s:is_windows
     " Make windows use ~/.vim too, I don't want to use _vimfiles
     set runtimepath^=~/.vim
 endif
@@ -88,17 +93,21 @@ set clipboard=unnamed
 " make sure I'm starting in my home dir, not Prog Files\Vim etc.
 cd ~  
 
-if has('win16') || has('win32') || has('win64')
+if s:is_windows
     set gfn=DejaVu_Sans_Mono:h10
-else
 endif
 
-"colorscheme slate
-colorscheme Tomorrow-Night
+if s:is_mac
+    set gfn=Monaco:h12
+endif
 
 " preferred window size
 set lines=30
 set columns=100
+
+"colorscheme slate
+colorscheme Tomorrow-Night
+
 "set shellslash
 
 " stop these files from being scattered all over
@@ -187,7 +196,7 @@ map <Leader>] viws]lviws]
 " pretty hacky - also only works if
 " this one took some time. would be easier to read as a function, but I was
 " having a hard time finding the equivalent of ^Rh in a function.
-if has('win16') || has('win32') || has('win64')
+if s:is_windows
     autocmd FileType vimwiki noremap \wi :cd %:p:h<CR>f]h"iyi]:redir => h<CR>:cd<CR>:redir END<CR>:let @h=substitute(h,"\n","","g")<CR>:!start rundll32.exe C:\WINDOWS\System32\shimgvw.dll,ImageView_Fullscreen h\i<CR><CR>
 endif
 
@@ -205,7 +214,7 @@ noremap \e :FufFileWithCurrentBufferDir **/<CR>
 noremap \b :FufBuffer<CR>
 
 " http://stackoverflow.com/questions/4294116/problem-with-vims-ruby-plugin
-if has('win16') || has('win32') || has('win64')
+if s:is_windows
     let g:ruby_path = ':C:\ruby192\bin'
 endif
 
