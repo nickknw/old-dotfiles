@@ -98,7 +98,7 @@ if s:is_windows
 endif
 
 if s:is_mac
-    set gfn=Monaco:h12
+    set gfn=Menlo:h12
 endif
 
 " preferred window size
@@ -116,7 +116,8 @@ set directory=~/.vim/swap
 
 " stop inserting comments on 'o' or 'O'!
 set formatoptions-=o
-set formatoptions+=nr
+set formatoptions+=n
+set formatoptions+=r
 
 " no menus
 if has("gui_running")
@@ -306,7 +307,10 @@ func! VimwikiCopyImages()
 endfunc
 
 func! Stopthat()
-    set formatoptions-=tcoa
+    set formatoptions-=t
+    set formatoptions-=c
+    set formatoptions-=o
+    set formatoptions-=a
 endfunc
 " }}}
 
