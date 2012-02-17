@@ -32,6 +32,8 @@ set textwidth=80
 set colorcolumn=0         " keep at 0 by default, but offer a mapping later on to change it
 set linebreak             " break lines at word boundaries instead of anywhere in the word (display only)
 set hidden                " allow buffer to be changed without writing to disk
+set noerrorbells
+set visualbell
 
 " Edit in Unicode, using UTF-8
 if has("multi_byte")
@@ -116,6 +118,7 @@ set directory=~/.vim/swap
 
 " stop inserting comments on 'o' or 'O'!
 set formatoptions-=o
+set formatoptions-=t
 set formatoptions+=n
 set formatoptions+=r
 

@@ -12,8 +12,8 @@ noremap : ;
 cnoremap <C-\'> .com<CR>
 
 " lazy and semi-convenient toggling of the menu + address bar
-noremap <C-m> :set go+=T<CR>
-noremap <C-S-M> :set go-=T<CR>
+noremap <C-m> :set go+=BT<CR>
+noremap <C-S-M> :set go-=BT<CR>
 
 " <Esc> to stop search highlighting
 map , <Esc><Esc>;<Up><CR>
