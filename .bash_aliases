@@ -12,3 +12,4 @@ alias vidir="for file in * ; do echo -e '\n\n'--$file--'\n'; cat $file;  done | 
 alias apt-i="sudo apt-get install"
 alias apt-s="apt-cache search"
 alias start_postgres="sudo su - postgres -c '/usr/local/bin/postgres -D /opt/local/var/db/postgresql91/data &'"
+alias tmux="tmux -2"
