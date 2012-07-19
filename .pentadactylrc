@@ -19,7 +19,7 @@ noremap <C-S-M> :set go-=BT<CR>
 map , <Esc><Esc>;<Up><CR>
 
 " when I ran into problems with my default search providers, this helped 
-set defsearch=g
+set defsearch=go
 
 
 " Windows shortcut emulations (pretty much mswin.vim)

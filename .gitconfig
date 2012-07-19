@@ -4,7 +4,8 @@
 [core]
 	autocrlf = false
 	safecrlf = false
-	editor = gvim --nofork 
+	editor = mvim --nofork 
+        pager = less -R
 [alias]
 	st = status
 	ci = commit
@@ -13,5 +14,8 @@
 	df = diff
 	graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
 	lg = log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+        logh = log --decorate --stat --abbrev-commit
         unstage = reset HEAD
-	pushlive = !./push-generated-files.sh
+	pushlive = !./push-site-live.sh
+[color]
+    ui = auto

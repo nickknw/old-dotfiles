@@ -116,11 +116,11 @@ colorscheme Tomorrow-Night
 set backupdir=~/.vim/backup
 set directory=~/.vim/swap
 
-" stop inserting comments on 'o' or 'O'!
+" stop inserting comments on 'o' or 'O' or Enter!
 set formatoptions-=o
 set formatoptions-=t
+set formatoptions-=r
 set formatoptions+=n
-set formatoptions+=r
 
 " no menus
 if has("gui_running")
@@ -314,6 +314,7 @@ func! Stopthat()
     set formatoptions-=c
     set formatoptions-=o
     set formatoptions-=a
+    set formatoptions-=r
 endfunc
 " }}}
 
