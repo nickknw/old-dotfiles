@@ -3,7 +3,11 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-export PATH=~/bin/:$PATH
+PATH=~/bin/:$PATH
+PATH=~/Library/Haskell/ghc-7.0.4/lib/darcs-2.8.1/bin/:$PATH
+PATH=~/Library/Haskell/ghc-7.0.4/lib/CCA-0.1.3/bin/:$PATH
+PATH=~/Library/Haskell/ghc-7.0.4/lib/hlint-1.8.33/bin/:$PATH
+export PATH
 export INPUTRC=~/.inputrc
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
