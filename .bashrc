@@ -1,4 +1,10 @@
-PS1="\u@\h:\w$ "
+# Use bash-completion, if available
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+   .  `brew --prefix`/etc/bash_completion
+fi
+
+PS1='\u@\h:\w$(__git_ps1 " (%s)")]\$ '
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -17,3 +23,5 @@ export INPUTRC=~/.inputrc
 #export PATH=$GRAILS_HOME/bin/:$PATH
 
 source ~/.autojump/etc/profile.d/autojump.bash
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
