@@ -3,7 +3,7 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
    .  `brew --prefix`/etc/bash_completion
 fi
 
-PS1='\u@\h:\w$(__git_ps1 " (%s)")]\$ '
+PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
