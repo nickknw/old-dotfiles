@@ -7,7 +7,9 @@
 	editor = mvim --nofork 
         pager = less -R
 [alias]
-	st = status
+        standup = lg --since yesterday --author Nick Knowlson
+        purr = pull --rebase
+	st = status -sb
 	ci = commit
 	br = branch
 	co = checkout
@@ -23,4 +25,4 @@
 [color]
         ui = auto
 [push]
-	default = simple
+    default = simple

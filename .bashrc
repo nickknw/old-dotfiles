@@ -13,6 +13,7 @@ PATH=~/bin/:$PATH
 PATH=~/Library/Haskell/ghc-7.0.4/lib/darcs-2.8.1/bin/:$PATH
 PATH=~/Library/Haskell/ghc-7.0.4/lib/CCA-0.1.3/bin/:$PATH
 PATH=~/Library/Haskell/ghc-7.0.4/lib/hlint-1.8.33/bin/:$PATH
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH
 export INPUTRC=~/.inputrc
 
@@ -24,4 +25,3 @@ export INPUTRC=~/.inputrc
 
 source ~/.autojump/etc/profile.d/autojump.bash
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
