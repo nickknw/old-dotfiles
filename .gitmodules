@@ -28,3 +28,18 @@
 [submodule ".vim/bundle/gundo"]
 	path = .vim/bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
+[submodule ".vim/bundle/rainbow_parentheses"]
+	path = .vim/bundle/rainbow_parentheses.vim
+        url = https://github.com/kien/rainbow_parentheses.vim.git
+[submodule ".vim/bundle/vim-classpath"]
+	path = .vim/bundle/vim-classpath
+        url = https://github.com/tpope/vim-classpath.git
+[submodule ".vim/bundle/vim-clojure-static"]
+	path = .vim/bundle/vim-clojure-static
+        url = https://github.com/guns/vim-clojure-static.git
+[submodule ".vim/bundle/vim-foreplay"]
+	path = .vim/bundle/vim-foreplay
+        url = https://github.com/tpope/vim-foreplay.git
+[submodule ".oh-my-zsh"]
+	path = .oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
